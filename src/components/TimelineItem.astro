@@ -1,0 +1,215 @@
+---
+import type { Experience } from '../utils/profile';
+import { formatDateRange, calculateDuration } from '../utils/profile';
+import { getCompanyLogo, getCompanyInitials } from '../utils/logos';
+
+interface Props {
+  experience: Experience;
+  index: number;
+  isFirst: boolean;
+  isLast: boolean;
+}
+
+const { experience, index, isFirst, isLast } = Astro.props;
+const isEven = index % 2 === 0;
+const duration = calculateDuration(experience.start, experience.end);
+const isCurrent = experience.end === 'Present';
+const logoUrl = getCompanyLogo(experience.company);
+const initials = getCompanyInitials(experience.company);
+
+// Extract year from start date
+const startYear = experience.start.toString().match(/\d{4}/)?.[0] || '';
+---
+
+<div
+  class:list={[
+    'timeline-item relative pb-12 last:pb-0',
+    'md:w-1/2',
+    isEven ? 'md:pr-12 md:ml-0 md:mr-auto md:text-right' : 'md:pl-12 md:ml-auto md:mr-0 md:text-left'
+  ]}
+  data-animate="fade-in-up"
+  style={`animation-delay: ${index * 0.1}s`}
+>
+  <!-- Timeline node -->
+  <div class:list={['timeline-node', isCurrent && 'current']}></div>
+  <!-- Year label -->
+  <span class:list={['timeline-year', isEven ? 'year-left' : 'year-right']}>
+    {startYear}
+  </span>
+
+  <!-- Content card -->
+  <div class="card group hover:border-[var(--color-accent)] transition-all">
+    <!-- Header with logo -->
+    <div class:list={[
+      'flex items-start gap-4 mb-4',
+      isEven ? 'md:flex-row-reverse' : 'md:flex-row'
+    ]}>
+      <!-- Company logo -->
+      <div class="shrink-0">
+        {logoUrl ? (
+          <div class="w-14 h-14 rounded-xl bg-white p-2 border border-[var(--color-border)] group-hover:border-[var(--color-accent)] transition-colors overflow-hidden">
+            <img
+              src={logoUrl}
+              alt={`${experience.company} logo`}
+              class="w-full h-full object-contain"
+              loading="lazy"
+              onerror="this.parentElement.innerHTML = `<div class='w-full h-full flex items-center justify-center bg-[var(--color-surface-elevated)] rounded-lg'><span class='text-sm font-bold text-[var(--color-text-muted)]'>${this.dataset.initials}</span></div>`"
+              data-initials={initials}
+            />
+          </div>
+        ) : (
+          <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-[var(--color-accent)]/20 to-[var(--color-accent-secondary)]/20 border border-[var(--color-border)] group-hover:border-[var(--color-accent)] transition-colors flex items-center justify-center">
+            <span class="text-sm font-bold text-[var(--color-accent)]">{initials}</span>
+          </div>
+        )}
+      </div>
+
+      <!-- Company info -->
+      <div class:list={['flex-1 min-w-0', isEven ? 'md:text-right' : 'md:text-left']}>
+        <!-- Date badge -->
+        <div class:list={[
+          'flex items-center gap-2 mb-2',
+          isEven ? 'md:justify-end' : 'md:justify-start'
+        ]}>
+          <span class="px-3 py-1 rounded-full text-xs font-medium bg-[var(--color-accent)]/10 text-[var(--color-accent)] border border-[var(--color-accent)]/20">
+            {formatDateRange(experience.start, experience.end)}
+          </span>
+          <span class="text-xs text-[var(--color-text-subtle)]">
+            {duration}
+          </span>
+        </div>
+
+        <!-- Company & Role -->
+        <h3 class="text-lg font-heading font-bold text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors mb-0.5 truncate">
+          {experience.company}
+        </h3>
+        <p class="text-[var(--color-accent-secondary)] font-medium text-sm">
+          {experience.role}
+        </p>
+      </div>
+    </div>
+
+    {experience.location && (
+      <div class:list={[
+        'flex items-center gap-1.5 text-sm text-[var(--color-text-subtle)] mb-3',
+        isEven ? 'md:justify-end' : 'md:justify-start'
+      ]}>
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <span>{experience.location}</span>
+      </div>
+    )}
+
+    {experience.description && (
+      <p class="text-[var(--color-text-muted)] text-sm leading-relaxed mb-4">
+        {experience.description}
+      </p>
+    )}
+
+    {experience.achievements && experience.achievements.length > 0 && (
+      <ul class:list={[
+        'space-y-2 mb-4',
+        isEven ? 'md:text-right' : 'md:text-left'
+      ]}>
+        {experience.achievements.map(achievement => (
+          <li class="flex items-start gap-2 text-sm text-[var(--color-text-muted)]">
+            <span class:list={[
+              'mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] shrink-0',
+              isEven && 'md:order-last'
+            ]}></span>
+            <span>{achievement}</span>
+          </li>
+        ))}
+      </ul>
+    )}
+
+    {experience.technologies && experience.technologies.length > 0 && (
+      <div class:list={[
+        'flex flex-wrap gap-2 pt-3 border-t border-[var(--color-border)]',
+        isEven ? 'md:justify-end' : 'md:justify-start'
+      ]}>
+        {experience.technologies.map(tech => (
+          <span class="skill-tag text-xs">
+            {tech}
+          </span>
+        ))}
+      </div>
+    )}
+
+    {experience.previous_role && (
+      <div class="mt-4 pt-4 border-t border-[var(--color-border)]">
+        <div class:list={[
+          'flex items-center gap-2 mb-2',
+          isEven ? 'md:justify-end' : 'md:justify-start'
+        ]}>
+          <span class="text-xs text-[var(--color-text-subtle)]">Previously:</span>
+          <span class="px-2 py-0.5 rounded text-xs bg-[var(--color-surface-elevated)] text-[var(--color-text-muted)]">
+            {formatDateRange(experience.previous_role.start, experience.previous_role.end)}
+          </span>
+        </div>
+        <p class="text-[var(--color-accent-secondary)] font-medium text-sm mb-1">
+          {experience.previous_role.role}
+        </p>
+        {experience.previous_role.description && (
+          <p class="text-[var(--color-text-muted)] text-xs leading-relaxed">
+            {experience.previous_role.description}
+          </p>
+        )}
+      </div>
+    )}
+  </div>
+</div>
+
+<style>
+  .timeline-item {
+    position: relative;
+  }
+
+  .timeline-year {
+    position: absolute;
+    top: -0.25rem;
+    font-size: 0.875rem;
+    font-weight: 800;
+    color: var(--color-text);
+    white-space: nowrap;
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding: 0.25rem 0.5rem;
+    z-index: 11;
+    letter-spacing: 0.025em;
+  }
+
+  /* Mobile: year to the left of the node */
+  .timeline-year {
+    left: -3rem;
+    text-align: right;
+  }
+
+  @media (min-width: 768px) {
+    /* Desktop: odd items (left cards) - year on the right of center line */
+    .timeline-item:nth-child(odd) .timeline-year.year-left {
+      left: auto;
+      right: -3.5rem;
+    }
+
+    /* Desktop: even items (right cards) - year on the left of center line */
+    .timeline-item:nth-child(even) .timeline-year.year-right {
+      left: -3.5rem;
+      right: auto;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-node {
+      right: -7px;
+      left: auto;
+    }
+
+    .timeline-item:nth-child(even) .timeline-node {
+      left: -7px;
+      right: auto;
+    }
+  }
+</style>

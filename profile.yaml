@@ -1,0 +1,299 @@
+name: Stephen McCullough
+tagline: Principal Engineer • Cloud Architect • Agentic Systems
+location: Belfast Metropolitan Area, Northern Ireland
+email: me@swm.cc
+personal_website: https://swm.cc
+linkedin: https://www.linkedin.com/in/theonlystephen
+company: https://skillfulgorilla.com
+
+summary: >
+  Seasoned software architect and engineering leader with deep expertise across
+  Ruby (Rails, Sinatra) and Python (Django, Flask, FastAPI). Co-organiser of Belfast
+  Ruby, PyBelfast and Belfast Elixir. AWS and PMI-certified, combining hands-on
+  engineering with strategic delivery.
+
+skills:
+  - Start-up Ventures
+  - Start-up Leadership
+  - Cloud Infrastructure
+  - Ruby
+  - Python
+  - Elixir
+  - Serverless Architecture
+  - DevOps
+  - Distributed Systems
+
+publications:
+  - Giants are made by standing...
+  - TMUX - Lightning Talk
+  - Neo4J - A brief introduction
+  - Life Outside Rails
+
+experience:
+  - company: $NEW_COMPANY
+    role: Principal Software Engineer / Architect
+    location: Hybrid/Belfast
+    start: December 2024
+    end: Present
+    description: >
+      Leading architectural transformation toward agentic workflows, decomposing monolithic features into
+      independent microservices. Designing flexible orchestration patterns and introducing abstractions
+      that future-proof systems for interchangeable AI-driven backends.
+    technologies:
+      - Python
+      - FastAPI
+      - FastMCP
+      - SvelteKit
+      - TypeScript
+      - Ollama
+      - GCP
+      - Kubernetes
+      - Helm
+      - Docker
+      - GitLab CI/CD
+      - Bash
+
+  - company: EXL
+    role: Cloud Architect / Principal Developer
+    location: Belfast, Northern Ireland
+    start: March 2022
+    end: December 2024
+    description: >
+      Hands-on cloud architect contributing to legacy system modernisation using serverless technologies.
+      Chief architect across multiple products, guiding projects from POC to MVP to production.
+      Implemented organisation-wide CI/CD strategies and contributed as a frequent internal technical speaker.
+    achievements:
+      - Elevated legacy projects to current industry standards
+      - Implemented seamless CI/CD pipelines
+      - Oversaw multi-product SDLC and architecture governance
+    technologies:
+      - Python
+      - CloudFormation
+      - Flask
+      - SageMaker
+      - Serverless
+      - AWS
+      - Node.js
+      - Express
+      - Next.js
+      - Vue.js
+      - Bash
+
+  - company: SkillfulGorilla
+    role: Founder
+    location: Belfast, Northern Ireland
+    start: July 2023
+    end: Present
+    description: >
+      Founder of a boutique software consultancy focused on building innovative, scalable,
+      and modern software solutions across the full SDLC. Currently engaged on various internal
+      application projects under NDA. Previously contracted to Emphasis Training Ltd (Sept 2023 - Feb 2025)
+      to support and modernise their internal back-office systems built with Ruby on Rails.
+    technologies:
+      - Ruby on Rails
+      - Ruby
+      - PostgreSQL
+      - Stripe
+      - Xero
+      - HubSpot
+      - WordPress
+      - Heroku
+      - Digital Ocean
+
+  - company: Faria Education Group
+    role: Polyglot Software Engineer
+    location: Remote
+    start: October 2019
+    end: February 2022
+    description: >
+      Part of a small R&D-focused engineering team solving complex problems in the education sector.
+      Designed and developed managed services and products with a wide range of technologies.
+    technologies:
+      - Ruby
+      - Rails
+      - Erlang
+      - Elixir
+      - Phoenix
+      - Angular
+      - Vue.js
+      - AWS
+      - Postgres
+
+  - company: Futrli
+    role: Site Lead
+    location: Belfast, United Kingdom
+    start: December 2018
+    end: September 2019
+    description: >
+      First engineering hire in Belfast office. Led team setup, hiring, and community outreach.
+      Delivered Python/Django and React-based product development.
+    technologies:
+      - Python
+      - Django
+      - Flask
+      - React
+      - AWS
+      - S3
+      - DynamoDB
+      - Redis
+      - PostgreSQL
+      - Serverless
+      - CloudFormation
+      - Docker
+      - Jenkins CI
+      - BuildKite
+      - New Relic
+      - StatsD
+      - GitHub
+
+  - company: ShopKeep
+    role: Technical Team Lead - Ecosystem
+    location: Belfast, United Kingdom
+    start: October 2016
+    end: October 2018
+    description: >
+      Led a team of six developers delivering integrations and ecosystem features.
+      Worked across Ruby, Rails, Sidekiq, AWS, Docker and more.
+    technologies:
+      - Ruby
+      - Rails
+      - Sidekiq
+      - Python
+      - Django
+      - Flask
+      - React
+      - Marathon
+      - Mesos
+      - Elasticsearch
+      - AWS
+      - S3
+      - Redis
+      - PostgreSQL
+      - Docker
+      - Capistrano
+      - Jenkins CI
+      - Rake
+      - Datadog
+      - New Relic
+      - StatsD
+      - CodeClimate
+      - GitHub
+    previous_role:
+      role: Senior Engineer
+      start: November 2015
+      end: October 2016
+      description: >
+        Worked on rapidly scaling backend infrastructure, focusing on performance, security,
+        testing, and deployment for high-traffic systems.
+
+  - company: AuditComply
+    role: Programmer
+    location: Belfast, United Kingdom
+    start: April 2014
+    end: November 2015
+    description: >
+      Senior engineer delivering weekly product features, leading test coverage efforts,
+      and working closely with CTO. Technologies included Python, Django, iOS/ObjC, AngularJS.
+
+  - company: Six Degree Labs
+    role: Programmer
+    location: Belfast, United Kingdom
+    start: September 2013
+    end: November 2015
+    description: >
+      Built social engagement and analytics platforms for large brands.
+      Experience with Rails, Django, Heroku deployments.
+
+  - company: saltDNA
+    role: Programmer
+    location: Belfast, United Kingdom
+    start: September 2013
+    end: July 2015
+    description: >
+      Worked on world-class secure communications platform. Focus on Python, Erlang and encrypted systems.
+
+  - company: RepKnight
+    role: Software Engineer
+    location: Belfast, United Kingdom
+    start: September 2012
+    end: September 2013
+    description: >
+      Built components of a real-time data visibility platform using PHP, Java, Ruby, Sinatra, MySQL, Cassandra.
+
+  - company: Tascomi Ltd.
+    role: Software Engineer
+    location: Hillsborough, Northern Ireland
+    start: July 2009
+    end: September 2012
+
+  - company: rehabstudio
+    role: Lead Programmer
+    location: Belfast, Northern Ireland
+    start: December 2008
+    end: June 2009
+
+  - company: Maildistiller
+    role: Software Engineer
+    location: Belfast, Northern Ireland
+    start: September 2007
+    end: December 2008
+
+  - company: VHS Distribution / Sendit.com / BlackStar.co.uk
+    role: Programmer / Head Programmer / IT Manager
+    location: Belfast, United Kingdom
+    start: April 2002
+    end: September 2007
+
+  - company: Atlas Communications (NI) Ltd
+    role: System Administrator
+    location: Belfast, United Kingdom
+    start: April 2001
+    end: April 2002
+
+  - company: CV3.com
+    role: Programmer
+    location: Belfast, United Kingdom
+    start: January 2001
+    end: March 2001
+
+  - company: BlackStar.co.uk
+    role: Programmer
+    location: Belfast, United Kingdom
+    start: January 2000
+    end: November 2000
+
+community:
+  - name: Belfast Ruby
+    role: Organiser
+    description: Monthly meetup bringing together Ruby developers across Northern Ireland. Handed over to fresh organisers to continue growing the community.
+    url: https://www.meetup.com/belfast-ruby/
+    active: false
+    status: Handed Over
+
+  - name: Belfast Elixir
+    role: Founding Organiser
+    description: Community meetup for Elixir enthusiasts, exploring functional programming and the BEAM ecosystem.
+    url: https://www.meetup.com/belfast-elixir/
+    active: false
+    status: Retired
+
+  - name: pyBelfast
+    role: Organiser
+    description: Python community meetup fostering learning and collaboration among Belfast's Python developers. Handed over to fresh organisers.
+    active: false
+    status: Handed Over
+
+projects:
+  - name: swm.cc
+    description: Personal website and blog built with Astro, featuring writing, notes, and projects.
+    url: https://swm.cc
+    technologies:
+      - Astro
+      - Tailwind CSS
+      - TypeScript
+
+  - name: SkillfulGorilla
+    description: Boutique software consultancy website showcasing services and portfolio.
+    url: https://skillfulgorilla.com
+    technologies:
+      - Modern Web Stack

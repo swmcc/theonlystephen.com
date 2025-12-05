@@ -1,0 +1,30 @@
+---
+import type { Experience } from '../utils/profile';
+import { formatDateRange, calculateDuration } from '../utils/profile';
+import TimelineItem from './TimelineItem.astro';
+
+interface Props {
+  experiences: Experience[];
+}
+
+const { experiences } = Astro.props;
+---
+
+<section id="experience" class="section">
+  <div class="container">
+    <h2 class="section-title" data-animate="fade-in-up">
+      <span class="gradient-text">Experience</span>
+    </h2>
+
+    <div class="timeline pl-6 md:pl-0">
+      {experiences.map((exp, index) => (
+        <TimelineItem
+          experience={exp}
+          index={index}
+          isFirst={index === 0}
+          isLast={index === experiences.length - 1}
+        />
+      ))}
+    </div>
+  </div>
+</section>

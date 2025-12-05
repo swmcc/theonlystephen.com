@@ -1,0 +1,235 @@
+---
+interface Props {
+  skills: string[];
+  publications: string[];
+}
+
+const { skills, publications } = Astro.props;
+
+// Group skills into categories
+const skillCategories = {
+  'Languages': ['Python', 'Ruby', 'TypeScript', 'Elixir', 'Go'],
+  'AI & Agents': ['Ollama', 'MCP', 'FastMCP', 'LangChain', 'RAG', 'Agentic Workflows'],
+  'Leadership': ['Architecture', 'Team Building', 'Start-up Leadership'],
+};
+
+const categoryIcons: Record<string, string> = {
+  'Languages': 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4',
+  'AI & Agents': 'M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5',
+  'Leadership': 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
+};
+
+const categoryColors: Record<string, string> = {
+  'Languages': 'var(--color-accent)',
+  'AI & Agents': 'var(--color-accent-tertiary)',
+  'Leadership': 'var(--color-accent-secondary)',
+};
+---
+
+<section id="skills" class="section bg-[var(--color-bg-secondary)]">
+  <div class="container">
+    <h2 class="section-title" data-animate="fade-in-up">
+      <span class="gradient-text">Skills & Talks</span>
+    </h2>
+
+    <!-- Bento Grid -->
+    <div class="bento-grid" data-animate="fade-in-up">
+      <!-- Skills Categories - Large cards -->
+      {Object.entries(skillCategories).map(([category, categorySkills], catIndex) => (
+        <div
+          class="bento-card group"
+          style={`--card-accent: ${categoryColors[category]}`}
+          data-animate="fade-in-up"
+        >
+          <div class="bento-card-inner">
+            <!-- Icon -->
+            <div class="bento-icon">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d={categoryIcons[category]} />
+              </svg>
+            </div>
+
+            <!-- Category name -->
+            <h3 class="text-sm font-medium text-[var(--color-text-muted)] uppercase tracking-wider mb-3">
+              {category}
+            </h3>
+
+            <!-- Skills -->
+            <div class="flex flex-wrap gap-2">
+              {categorySkills.map(skill => (
+                <span class="bento-skill">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <!-- Hover glow -->
+          <div class="bento-glow"></div>
+        </div>
+      ))}
+
+      <!-- Publications - Spanning card -->
+      <div class="bento-card bento-card-wide group" data-animate="fade-in-up">
+        <div class="bento-card-inner">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <div class="bento-icon" style="--card-accent: var(--color-accent)">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+                </svg>
+              </div>
+              <h3 class="text-sm font-medium text-[var(--color-text-muted)] uppercase tracking-wider mt-3">
+                Past Talks
+              </h3>
+            </div>
+            <span class="text-xs text-[var(--color-text-subtle)] bg-[var(--color-surface-elevated)] px-2 py-1 rounded-full">
+              Archive
+            </span>
+          </div>
+
+          <!-- Speaking blurb -->
+          <p class="text-[var(--color-text-muted)] text-sm leading-relaxed mb-4">
+            Over the years I've spoken at ElixirConf, NIDevConf, PyCon Ireland, and various local meetups. Here are some titles - there are more in the archive.
+          </p>
+
+          <!-- Publications list -->
+          <div class="grid sm:grid-cols-2 gap-3">
+            {publications.map((pub, index) => (
+              <div class="pub-item group/pub">
+                <span class="pub-number">{String(index + 1).padStart(2, '0')}</span>
+                <span class="pub-title">{pub}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="bento-glow"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .bento-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .bento-card {
+    position: relative;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 1.5rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .bento-card:hover {
+    border-color: var(--card-accent, var(--color-accent));
+    transform: translateY(-2px);
+  }
+
+  .bento-card-inner {
+    position: relative;
+    padding: 1.5rem;
+    z-index: 1;
+  }
+
+  .bento-card-wide {
+    grid-column: 1 / -1;
+  }
+
+  .bento-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.75rem;
+    background: color-mix(in srgb, var(--card-accent, var(--color-accent)) 15%, transparent);
+    color: var(--card-accent, var(--color-accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .bento-card:hover .bento-icon {
+    background: var(--card-accent, var(--color-accent));
+    color: white;
+    transform: scale(1.1);
+  }
+
+  .bento-skill {
+    padding: 0.375rem 0.75rem;
+    background: var(--color-surface-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text);
+    transition: all 0.2s ease;
+  }
+
+  .bento-card:hover .bento-skill {
+    border-color: var(--card-accent, var(--color-accent));
+    color: var(--card-accent, var(--color-accent));
+  }
+
+  .bento-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at 50% 50%,
+      color-mix(in srgb, var(--card-accent, var(--color-accent)) 10%, transparent),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+
+  .bento-card:hover .bento-glow {
+    opacity: 1;
+  }
+
+  .pub-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    background: var(--color-surface-elevated);
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+  }
+
+  .pub-item:hover {
+    border-color: var(--color-accent);
+    background: color-mix(in srgb, var(--color-accent) 5%, var(--color-surface-elevated));
+  }
+
+  .pub-number {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+  }
+
+  .pub-title {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+    transition: color 0.2s ease;
+  }
+
+  .pub-item:hover .pub-title {
+    color: var(--color-text);
+  }
+</style>
