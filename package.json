@@ -13,5 +13,8 @@
     "astro": "^5.16.4",
     "tailwindcss": "^4.1.17",
     "yaml": "^2.8.2"
+  },
+  "devDependencies": {
+    "puppeteer": "^24.32.0"
   }
 }

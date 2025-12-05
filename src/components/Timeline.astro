@@ -16,15 +16,162 @@ const { experiences } = Astro.props;
       <span class="gradient-text">Experience</span>
     </h2>
 
-    <div class="timeline pl-6 md:pl-0">
-      {experiences.map((exp, index) => (
-        <TimelineItem
-          experience={exp}
-          index={index}
-          isFirst={index === 0}
-          isLast={index === experiences.length - 1}
+    <!-- Search Bar -->
+    <div class="mb-8" data-animate="fade-in-up">
+      <div class="relative max-w-md">
+        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+          <svg class="w-5 h-5" style="color: var(--color-text-subtle);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+        <input
+          type="text"
+          id="timeline-search"
+          placeholder="Search positions..."
+          class="w-full pl-12 pr-4 py-3 rounded-xl border transition-colors"
+          style="background: var(--color-surface); color: var(--color-text); border-color: var(--color-border);"
         />
+      </div>
+      <div id="results-count" class="text-sm mt-3" style="color: var(--color-text-muted);">
+        Showing all {experiences.length} positions
+      </div>
+    </div>
+
+    <!-- No Results Message -->
+    <div id="no-results" class="hidden text-center py-12">
+      <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-[var(--color-surface)] flex items-center justify-center">
+        <svg class="w-8 h-8 text-[var(--color-text-subtle)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <p class="text-[var(--color-text-muted)]">No positions match your search</p>
+      <button id="reset-from-empty" class="mt-3 text-[var(--color-accent)] hover:text-[var(--color-accent-hover)] transition-colors">
+        Reset filters
+      </button>
+    </div>
+
+    <div class="timeline pl-6 md:pl-0" id="timeline-container">
+      {experiences.map((exp, index) => (
+        <div
+          class="timeline-item-wrapper"
+          data-company={exp.company.toLowerCase()}
+          data-role={exp.role.toLowerCase()}
+          data-description={(exp.description || '').toLowerCase()}
+          data-location={(exp.location || '').toLowerCase()}
+          data-technologies={(exp.technologies || []).join(',').toLowerCase()}
+        >
+          <TimelineItem
+            experience={exp}
+            index={index}
+            isFirst={index === 0}
+            isLast={index === experiences.length - 1}
+          />
+        </div>
       ))}
     </div>
   </div>
 </section>
+
+<style>
+  #timeline-search:focus {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-color: var(--color-accent);
+  }
+
+  .timeline-item-wrapper {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .timeline-item-wrapper.hidden {
+    display: none;
+  }
+
+  .timeline-item-wrapper.fade-in {
+    animation: fadeIn 0.3s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  const items = document.querySelectorAll('.timeline-item-wrapper');
+  const searchInput = document.getElementById('timeline-search') as HTMLInputElement;
+  const resultsCount = document.getElementById('results-count');
+  const noResults = document.getElementById('no-results');
+  const timelineContainer = document.getElementById('timeline-container');
+  const resetFromEmptyBtn = document.getElementById('reset-from-empty');
+
+  let searchQuery = '';
+
+  function filterTimeline() {
+    let visibleCount = 0;
+
+    items.forEach(item => {
+      const el = item as HTMLElement;
+      const company = el.dataset.company || '';
+      const role = el.dataset.role || '';
+      const description = el.dataset.description || '';
+      const location = el.dataset.location || '';
+      const technologies = el.dataset.technologies || '';
+
+      const matchesSearch = !searchQuery ||
+        company.includes(searchQuery) ||
+        role.includes(searchQuery) ||
+        description.includes(searchQuery) ||
+        location.includes(searchQuery) ||
+        technologies.toLowerCase().includes(searchQuery);
+
+      if (matchesSearch) {
+        if (el.classList.contains('hidden')) {
+          el.classList.remove('hidden');
+          el.classList.add('fade-in');
+          setTimeout(() => el.classList.remove('fade-in'), 300);
+        }
+        visibleCount++;
+      } else {
+        el.classList.add('hidden');
+      }
+    });
+
+    if (resultsCount) {
+      if (searchQuery) {
+        resultsCount.textContent = `Showing ${visibleCount} of ${items.length} positions`;
+      } else {
+        resultsCount.textContent = `Showing all ${items.length} positions`;
+      }
+    }
+
+    if (noResults && timelineContainer) {
+      if (visibleCount === 0) {
+        noResults.classList.remove('hidden');
+        timelineContainer.classList.add('hidden');
+      } else {
+        noResults.classList.add('hidden');
+        timelineContainer.classList.remove('hidden');
+      }
+    }
+  }
+
+  // Search input
+  searchInput?.addEventListener('input', (e) => {
+    searchQuery = (e.target as HTMLInputElement).value.toLowerCase().trim();
+    filterTimeline();
+  });
+
+  // Reset from empty state
+  resetFromEmptyBtn?.addEventListener('click', () => {
+    searchQuery = '';
+    if (searchInput) searchInput.value = '';
+    filterTimeline();
+  });
+</script>

@@ -131,9 +131,12 @@ const startYear = experience.start.toString().match(/\d{4}/)?.[0] || '';
         isEven ? 'md:justify-end' : 'md:justify-start'
       ]}>
         {experience.technologies.map(tech => (
-          <span class="skill-tag text-xs">
+          <button
+            class="skill-tag text-xs timeline-tech-tag cursor-pointer hover:bg-[var(--color-accent)] hover:text-white hover:border-[var(--color-accent)] transition-colors"
+            data-tech={tech}
+          >
             {tech}
-          </span>
+          </button>
         ))}
       </div>
     )}
